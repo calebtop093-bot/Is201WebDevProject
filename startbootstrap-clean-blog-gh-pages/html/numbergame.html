@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the Hike Miles</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            text-align: center;
+            padding-top: 50px;
+
+            /* Background image settings */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        .game-container {
+            width: 420px;
+            margin: auto;
+            padding: 25px;
+            border: 2px solid white;
+            border-radius: 10px;
+            background-color: rgba(31, 58, 95, 0.9);
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 8px 0;
+            font-size: 16px;
+            width: 80%;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #ffffff;
+            color: #1f3a5f;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #d9e6f2;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .small-text {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay">
+        <div class="game-container">
+            <a href="scratch.html">Back to Favorite Hikes</a>
+            <h1>Guess the Hike Miles</h1>
+
+            <p id="hikePrompt"></p>
+
+            <input type="number" id="guessInput" step="0.1"
+                   placeholder="Enter miles (e.g. 6.5)">
+
+            <br>
+
+            <button onclick="checkGuess()">Submit Guess</button>
+
+            <p class="message" id="message"></p>
+            <p class="small-text" id="attempts"></p>
+
+            <button onclick="nextHike()">Next Hike</button>
+        </div>
+    </div>
+
+    <script>
+        const hikes = [
+            {
+                name: "Lake Blanche",
+                miles: 6.4,
+                image: "../images/lakeblanche.jpeg"
+            },
+            {
+                name: "Khyv Peak",
+                miles: 7.2,
+                image: "../images/khyvpeak.jpg"
+            },
+            {
+                name: "Ridge Trail",
+                miles: 5.8,
+                image: "../images/south_fork_little_deer_creek_ridge2.jpg"
+            }
+        ];
+
+        let currentHikeIndex = 0;
+        let guessCount = 0;
+
+        function loadHike() {
+            const currentHike = hikes[currentHikeIndex];
+
+            document.getElementById("hikePrompt").textContent =
+                "How many miles is the hike to " + currentHike.name + "?";
+
+            document.body.style.backgroundImage =
+                "url('" + currentHike.image + "')";
+
+            document.getElementById("message").textContent = "";
+            document.getElementById("attempts").textContent = "";
+            document.getElementById("guessInput").value = "";
+            guessCount = 0;
+        }
+
+        function checkGuess() {
+            const userGuess = parseFloat(document.getElementById("guessInput").value);
+            const correctMiles = hikes[currentHikeIndex].miles;
+
+            if (isNaN(userGuess) || userGuess <= 0) {
+                document.getElementById("message").textContent =
+                    "Please enter a valid number of miles.";
+                return;
+            }
+
+            guessCount++;
+
+            if (Math.abs(userGuess - correctMiles) <= 0.1) {
+                document.getElementById("message").textContent =
+                    "Correct! The hike is " + correctMiles + " miles.";
+            } else if (userGuess < correctMiles) {
+                document.getElementById("message").textContent =
+                    "Too low. Try a higher number.";
+            } else {
+                document.getElementById("message").textContent =
+                    "Too high. Try a lower number.";
+            }
+
+            document.getElementById("attempts").textContent =
+                "Attempts: " + guessCount;
+        }
+
+        function nextHike() {
+            currentHikeIndex = (currentHikeIndex + 1) % hikes.length;
+            loadHike();
+        }
+
+        loadHike();
+    </script>
+
+</body>
+</html>

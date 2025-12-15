@@ -1,0 +1,45 @@
+ body {
+    font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        color: white;
+        background-color: rgb(7, 69, 201);
+        }
+        li {font-size: 14px;
+             font-style: italic;
+            font-weight: normal;}
+        a{color:white;
+text-decoration:none;}
+a:hover{
+    text-decoration: underline;
+   /* font-weight: bold;
+font-size: 18px;*/}
+a:visited{color: white;}
+.resumeListHeading{
+    font-weight: bold;
+    font-style: normal;}
+.underline{
+    text-decoration: underline;}
+    .bold{font-weight: bold;}
+    .justify{text-align: justify;}
+
+    .homebg {
+        background-image: url("../images/Simpsons\ Background.jpg");
+        background-position-y: top right;}
+        /* background repeat: ;*/
+    
+.box1 {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+
+    border:1px solid red
+}
+/* created a border around box1 */
+.box2 {
+    padding: 5px;
+}
+/* created padding around box2 */
+.box3 {
+    margin: 50px;
+}
+/* created margin around box3 */
